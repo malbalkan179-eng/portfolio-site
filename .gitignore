@@ -1,0 +1,27 @@
+# Секреты и конфиденциальные данные
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.*
+secrets.*
+config.local.*
+
+# IDE и системные файлы
+.vscode/
+.cursor/
+.idea/
+*.swp
+*.swo
+*~
+Thumbs.db
+.DS_Store
+
+# Node (на будущее)
+node_modules/
+package-lock.json
+
+# Логи
+*.log
