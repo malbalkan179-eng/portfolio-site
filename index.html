@@ -5,50 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Яна Морозова — Мастер по перманентному макияжу</title>
   <meta name="description" content="Перманентный макияж губ и бровей. Сертифицированный мастер Яна Морозова — естественная красота на годы.">
-  <meta property="og:title" content="Яна Морозова — Мастер по перманентному макияжу">
-  <meta property="og:description" content="Перманентный макияж губ и бровей. Естественная красота на годы.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&h=800&fit=crop">
-  <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0f0f14;
-      --bg-card: #16161d;
-      --bg-input: #1c1c26;
-      --text: #eaeaf0;
-      --text-muted: #9a9ab0;
-      --accent: #c084fc;
-      --accent-deep: #a855f7;
-      --accent-glow: rgba(168, 85, 247, 0.35);
-      --accent-soft: rgba(168, 85, 247, 0.1);
-      --border: #2a2a3a;
-      --font: 'Inter', system-ui, -apple-system, sans-serif;
+      --bg: #1a1118;
+      --bg-card: #231c22;
+      --bg-input: #2a2229;
+      --text: #f5eef2;
+      --text-muted: #c4a8b8;
+      --accent: #f472b6;
+      --accent-deep: #ec4899;
+      --accent-glow: rgba(244, 114, 182, 0.4);
+      --accent-soft: rgba(244, 114, 182, 0.1);
+      --sakura: #fbb6ce;
+      --sakura-deep: #f687b3;
+      --gold: #f6d365;
+      --border: #3d2d38;
+      --font: 'Inter', system-ui, sans-serif;
+      --font-display: 'Playfair Display', Georgia, serif;
       --radius: 16px;
       --radius-sm: 10px;
       --transition: 0.3s ease;
     }
 
     html[data-theme="light"] {
-      --bg: #f8f7fc;
+      --bg: #fdf2f8;
       --bg-card: #ffffff;
-      --bg-input: #f0eef5;
-      --text: #1a1a2e;
-      --text-muted: #6b6b80;
-      --accent: #9333ea;
-      --accent-deep: #7e22ce;
-      --accent-glow: rgba(147, 51, 234, 0.25);
-      --accent-soft: rgba(147, 51, 234, 0.08);
-      --border: #e0dfe6;
+      --bg-input: #fce7f3;
+      --text: #4a1942;
+      --text-muted: #9d5c8a;
+      --accent: #db2777;
+      --accent-deep: #be185d;
+      --accent-glow: rgba(219, 39, 119, 0.25);
+      --accent-soft: rgba(219, 39, 119, 0.08);
+      --sakura: #f9a8d4;
+      --sakura-deep: #ec4899;
+      --border: #f3d1e4;
     }
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
@@ -57,7 +54,34 @@
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
+      overflow-x: hidden;
       transition: background var(--transition), color var(--transition);
+    }
+
+    .sakura-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      top: -20px;
+      width: 12px;
+      height: 12px;
+      background: radial-gradient(ellipse at center, var(--sakura) 0%, transparent 70%);
+      border-radius: 50% 0 50% 0;
+      opacity: 0;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { opacity: 0; transform: translateX(0) rotate(0deg) scale(0.8); }
+      10% { opacity: 0.7; }
+      90% { opacity: 0.5; }
+      100% { opacity: 0; transform: translateX(80px) rotate(720deg) scale(0.3) translateY(100vh); }
     }
 
     .theme-toggle {
@@ -76,13 +100,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background var(--transition), border-color var(--transition);
+      transition: all var(--transition);
       box-shadow: 0 2px 12px rgba(0,0,0,0.15);
     }
 
     .theme-toggle:hover {
       border-color: var(--accent);
       background: var(--accent-soft);
+      transform: rotate(20deg);
     }
 
     .hero {
@@ -92,22 +117,73 @@
       justify-content: center;
       padding: 3rem 1.5rem;
       position: relative;
+      z-index: 1;
     }
 
-    .hero-inner {
-      text-align: center;
-      max-width: 600px;
+    .hero-inner { text-align: center; max-width: 620px; }
+
+    .hero-photo-wrap {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-photo-glow {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--sakura), var(--accent), var(--gold),
+        var(--sakura-deep), var(--accent-deep), var(--sakura)
+      );
+      opacity: 0.5;
+      filter: blur(16px);
+      animation: glowPulse 4s ease-in-out infinite;
+      transition: opacity 0.4s, filter 0.4s;
+    }
+
+    .hero-photo-wrap:hover .hero-photo-glow {
+      opacity: 1;
+      filter: blur(22px);
+      animation: glowSpin 3s linear infinite, glowPulse 2s ease-in-out infinite;
     }
 
     .hero-photo {
-      width: 180px;
-      height: 180px;
-      margin: 0 auto 2rem;
+      position: relative;
+      width: 200px;
+      height: 200px;
       border-radius: 50%;
       overflow: hidden;
-      border: 4px solid var(--accent);
-      box-shadow: 0 0 40px var(--accent-glow), 0 8px 32px rgba(0,0,0,0.3);
-      transition: box-shadow var(--transition), border-color var(--transition);
+      border: 3px solid var(--sakura);
+      z-index: 1;
+      transition: transform 0.4s ease, border-color 0.4s;
+      animation: photoBreath 6s ease-in-out infinite;
+    }
+
+    .hero-photo-wrap:hover .hero-photo {
+      animation: photoPop 0.8s ease-in-out infinite alternate;
+      border-color: var(--accent);
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.08); opacity: 0.75; }
+    }
+
+    @keyframes glowSpin {
+      from { transform: rotate(0deg) scale(1.05); }
+      to { transform: rotate(360deg) scale(1.1); }
+    }
+
+    @keyframes photoBreath {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    @keyframes photoPop {
+      0% { transform: scale(1.05); }
+      100% { transform: scale(1.12); }
     }
 
     .hero-photo img {
@@ -118,28 +194,36 @@
     }
 
     .hero-name {
-      font-size: 2.5rem;
+      font-family: var(--font-display);
+      font-size: 2.8rem;
       font-weight: 700;
-      letter-spacing: -0.03em;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+      background: linear-gradient(135deg, var(--sakura) 0%, var(--accent) 50%, var(--gold) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
     .hero-role {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       color: var(--accent);
       font-weight: 500;
       margin-bottom: 1.25rem;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-divider {
+      width: 60px;
+      height: 2px;
+      margin: 0 auto 1.25rem;
+      background: linear-gradient(90deg, transparent, var(--sakura), transparent);
     }
 
     .hero-description {
       font-size: 1.05rem;
       color: var(--text-muted);
-      line-height: 1.75;
+      line-height: 1.8;
       max-width: 480px;
       margin: 0 auto 2rem;
     }
@@ -148,8 +232,10 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.85rem 2rem;
-      background: linear-gradient(135deg, var(--accent-deep), var(--accent));
+      padding: 0.9rem 2.2rem;
+      background: linear-gradient(135deg, var(--accent-deep), var(--accent), var(--sakura));
+      background-size: 200% 200%;
+      animation: btnShimmer 4s ease infinite;
       color: #fff;
       border: none;
       border-radius: 50px;
@@ -158,12 +244,18 @@
       text-decoration: none;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 20px var(--accent-glow);
+      box-shadow: 0 4px 24px var(--accent-glow);
+    }
+
+    @keyframes btnShimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .hero-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 30px var(--accent-glow);
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 32px var(--accent-glow);
     }
 
     .scroll-hint {
@@ -177,14 +269,13 @@
       gap: 0.4rem;
       font-size: 0.7rem;
       color: var(--text-muted);
-      text-transform: uppercase;
       letter-spacing: 0.12em;
     }
 
     .scroll-dot {
       width: 6px;
       height: 6px;
-      background: var(--accent);
+      background: var(--sakura);
       border-radius: 50%;
       animation: bounce 2s ease-in-out infinite;
     }
@@ -194,17 +285,12 @@
       50% { transform: translateY(10px); opacity: 0.4; }
     }
 
-    .section {
-      padding: 5rem 1.5rem;
-    }
-
-    .container {
-      max-width: 720px;
-      margin: 0 auto;
-    }
+    .section { padding: 5rem 1.5rem; position: relative; z-index: 1; }
+    .container { max-width: 720px; margin: 0 auto; }
 
     .section-title {
-      font-size: 1.75rem;
+      font-family: var(--font-display);
+      font-size: 1.85rem;
       font-weight: 700;
       margin-bottom: 2rem;
       position: relative;
@@ -218,15 +304,11 @@
       left: 0;
       width: 40px;
       height: 3px;
-      background: var(--accent);
+      background: linear-gradient(90deg, var(--accent), var(--sakura));
       border-radius: 2px;
     }
 
-    .about-content {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
+    .about-content { display: flex; flex-direction: column; gap: 1.25rem; }
 
     .about-content p {
       color: var(--text-muted);
@@ -240,7 +322,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 2rem;
-      transition: background var(--transition), border-color var(--transition);
+      transition: all var(--transition);
     }
 
     .services-title {
@@ -257,16 +339,24 @@
     }
 
     .service-item {
-      padding: 1rem;
+      padding: 1.15rem;
       background: var(--bg-input);
       border-radius: var(--radius-sm);
-      transition: background var(--transition);
+      border: 1px solid transparent;
+      transition: all var(--transition);
+    }
+
+    .service-item:hover {
+      border-color: var(--sakura);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(244, 114, 182, 0.1);
     }
 
     .service-item h4 {
       font-size: 0.95rem;
       font-weight: 600;
       margin-bottom: 0.35rem;
+      color: var(--sakura);
     }
 
     .service-item p {
@@ -288,16 +378,11 @@
 
     .contact-email:hover { color: var(--accent); }
 
-    .social-links {
-      display: flex;
-      gap: 0.75rem;
-      margin-bottom: 2.5rem;
-    }
+    .social-links { display: flex; gap: 0.75rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
 
     .social-link {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       padding: 0.6rem 1.2rem;
       background: var(--bg-input);
       border: 1px solid var(--border);
@@ -310,9 +395,10 @@
     }
 
     .social-link:hover {
-      border-color: var(--accent);
+      border-color: var(--sakura);
       background: var(--accent-soft);
       color: var(--accent);
+      transform: translateY(-1px);
     }
 
     .contact-form {
@@ -320,18 +406,12 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 2rem;
-      transition: background var(--transition), border-color var(--transition);
+      transition: all var(--transition);
     }
 
-    .contact-form h3 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      margin-bottom: 1.25rem;
-    }
+    .contact-form h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 1.25rem; }
 
-    .form-group {
-      margin-bottom: 1rem;
-    }
+    .form-group { margin-bottom: 1rem; }
 
     .form-group label {
       display: block;
@@ -351,24 +431,21 @@
       color: var(--text);
       font-family: var(--font);
       font-size: 0.95rem;
-      transition: border-color var(--transition), background var(--transition);
+      transition: border-color var(--transition);
       outline: none;
     }
 
     .form-group input:focus,
-    .form-group textarea:focus {
-      border-color: var(--accent);
-    }
+    .form-group textarea:focus { border-color: var(--sakura); }
 
-    .form-group textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
+    .form-group textarea { min-height: 120px; resize: vertical; }
 
     .form-submit {
       width: 100%;
       padding: 0.85rem;
-      background: linear-gradient(135deg, var(--accent-deep), var(--accent));
+      background: linear-gradient(135deg, var(--accent-deep), var(--accent), var(--sakura));
+      background-size: 200% 200%;
+      animation: btnShimmer 4s ease infinite;
       color: #fff;
       border: none;
       border-radius: var(--radius-sm);
@@ -389,37 +466,40 @@
       padding: 2rem 1.5rem;
       text-align: center;
       border-top: 1px solid var(--border);
-      transition: border-color var(--transition);
+      position: relative;
+      z-index: 1;
     }
 
-    .footer p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
+    .footer p { font-size: 0.85rem; color: var(--text-muted); }
+
+    .footer .sakura-icon::before { content: '\1F338 '; }
 
     @media (max-width: 600px) {
-      .hero-name { font-size: 1.8rem; }
-      .hero-photo { width: 140px; height: 140px; }
+      .hero-name { font-size: 2rem; }
+      .hero-photo-wrap, .hero-photo { width: 150px; height: 150px; }
       .hero-role { font-size: 1rem; }
-      .hero-description { font-size: 0.95rem; }
       .section { padding: 3.5rem 1rem; }
       .services-grid { grid-template-columns: 1fr; }
-      .social-links { flex-wrap: wrap; }
     }
   </style>
 </head>
 <body>
+  <div class="sakura-container" id="sakura"></div>
   <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">&#9728;</button>
 
   <header class="hero">
     <div class="hero-inner">
-      <div class="hero-photo">
-        <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400&h=400&fit=crop&crop=face" alt="Яна Морозова" loading="eager">
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-glow"></div>
+        <div class="hero-photo">
+          <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400&h=400&fit=crop&crop=face" alt="Яна Морозова" loading="eager">
+        </div>
       </div>
       <h1 class="hero-name">Яна Морозова</h1>
       <p class="hero-role">Мастер по перманентному макияжу</p>
-      <p class="hero-description">Делаю губы и брови с эффектом естественной красоты. Сертифицированный мастер с опытом более 5 лет. Индивидуальный подход, стерильность и гарантия результата.</p>
-      <a href="#contact" class="hero-btn">Свяжитесь со мной</a>
+      <div class="hero-divider"></div>
+      <p class="hero-description">Делаю губы и брови с эффектом естественной красоты. Индивидуальный подход, премиальные пигменты и стерильность — результат, который радует годами.</p>
+      <a href="#contact" class="hero-btn">&#127800; Записаться</a>
     </div>
     <div class="scroll-hint">
       <div class="scroll-dot"></div>
@@ -431,9 +511,9 @@
       <div class="container">
         <h2 class="section-title">О себе</h2>
         <div class="about-content">
-          <p>Я — сертифицированный мастер по перманентному макияжу. Специализируюсь на технике губ и бровей: от нежного акварельного эффекта до чёткой графики. Работаю исключительно с гипоаллергенными пигментами премиум-класса в стерильных условиях, потому что здоровье и безопасность клиента — мой главный приоритет.</p>
-          <p>За более чем 5 лет практики я выполнила сотни процедур и помогла клиенткам обрести уверенность в своей внешности. Мой подход — это индивидуальный подбор формы и оттенка с учётом типа лица, цвета кожи и ваших личных предпочтений. Каждая работа начинается с детальной консультации, чтобы результат превзошёл ожидания.</p>
-          <p>Результат перманентного макияжа сохраняется от 1 до 2 лет. Перед каждой процедурой я провожу бесплатную консультацию, а после — даю подробные рекомендации по уходу. Моя цель — чтобы вы просыпались с идеальным макияжем и чувствовали себя прекрасно каждый день.</p>
+          <p>Я — сертифицированный мастер по перманентному макияжу с более чем 5-летним опытом. Специализируюсь на технике губ и бровей: от нежного акварельного эффекта до чёткой графики. Работаю исключительно с гипоаллергенными пигментами премиум-класса в стерильных условиях.</p>
+          <p>Каждая работа начинается с детальной консультации — я подбираю форму и оттенок с учётом типа лица, цвета кожи и ваших личных предпочтений. Мой подход — это внимание к деталям и стремление к совершенству, чтобы результат выглядел максимально естественно и гармонично.</p>
+          <p>Результат сохраняется от 1 до 2 лет. Перед каждой процедурой — бесплатная консультация, после — подробные рекомендации по уходу. Моя цель — чтобы вы просыпались красивой каждый день.</p>
         </div>
       </div>
     </section>
@@ -442,7 +522,7 @@
       <div class="container">
         <h2 class="section-title">Услуги</h2>
         <div class="services">
-          <p class="services-title">Что я делаю</p>
+          <p class="services-title">&#127800; Что я делаю</p>
           <div class="services-grid">
             <div class="service-item">
               <h4>Губы</h4>
@@ -468,17 +548,14 @@
     <section class="section" id="contact">
       <div class="container">
         <h2 class="section-title">Контакты</h2>
-
         <a href="mailto:demo@example.com" class="contact-email">&#128231; demo@example.com</a>
-
         <div class="social-links">
           <a href="https://t.me/demo_portfolio" class="social-link" target="_blank" rel="noopener">Telegram</a>
           <a href="https://instagram.com/" class="social-link" target="_blank" rel="noopener">Instagram</a>
           <a href="https://wa.me/" class="social-link" target="_blank" rel="noopener">WhatsApp</a>
         </div>
-
         <div class="contact-form">
-          <h3>Написать мне</h3>
+          <h3>&#127800; Написать мне</h3>
           <form id="contactForm" onsubmit="return handleSubmit(event)">
             <div class="form-group">
               <label for="name">Имя</label>
@@ -490,7 +567,7 @@
             </div>
             <div class="form-group">
               <label for="message">Сообщение</label>
-              <textarea id="message" name="message" placeholder="Напишите ваш вопрос или пожелание..." required></textarea>
+              <textarea id="message" name="message" placeholder="Напишите ваш вопрос или запишитесь на процедуру..." required></textarea>
             </div>
             <button type="submit" class="form-submit">Отправить</button>
           </form>
@@ -501,7 +578,7 @@
 
   <footer class="footer">
     <div class="container">
-      <p>&copy; <span id="year"></span> Яна Морозова. Перманентный макияж — губы, брови.</p>
+      <p><span class="sakura-icon"></span>&copy; <span id="year"></span> Яна Морозова. Перманентный макияж — губы, брови.</p>
     </div>
   </footer>
 
@@ -516,8 +593,7 @@
       toggle.textContent = saved === 'light' ? '\u{1F319}' : '\u{2600}';
     }
     toggle.addEventListener('click', () => {
-      const current = html.getAttribute('data-theme');
-      const next = current === 'light' ? 'dark' : 'light';
+      const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       html.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
       toggle.textContent = next === 'light' ? '\u{1F319}' : '\u{2600}';
@@ -526,8 +602,8 @@
     function handleSubmit(e) {
       e.preventDefault();
       const btn = e.target.querySelector('.form-submit');
-      btn.textContent = 'Отправлено!';
-      btn.style.background = '#22c55e';
+      btn.textContent = '\u{1F338} Отправлено!';
+      btn.style.background = 'linear-gradient(135deg, #22c55e, #4ade80)';
       setTimeout(() => {
         btn.textContent = 'Отправить';
         btn.style.background = '';
@@ -535,6 +611,22 @@
       }, 2000);
       return false;
     }
+
+    /* Падающие лепестки сакуры */
+    (function() {
+      const container = document.getElementById('sakura');
+      const count = 20;
+      for (let i = 0; i < count; i++) {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.animationDuration = (6 + Math.random() * 8) + 's';
+        petal.style.animationDelay = (Math.random() * 10) + 's';
+        petal.style.width = (8 + Math.random() * 10) + 'px';
+        petal.style.height = petal.style.width;
+        container.appendChild(petal);
+      }
+    })();
   </script>
 </body>
 </html>
