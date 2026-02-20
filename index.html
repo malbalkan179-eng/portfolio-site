@@ -4,107 +4,166 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Яна Морозова — Мастер по перманентному макияжу</title>
+  <meta name="description" content="Перманентный макияж губ и бровей. Сертифицированный мастер Яна Морозова — естественная красота на годы.">
+  <meta property="og:title" content="Яна Морозова — Мастер по перманентному макияжу">
+  <meta property="og:description" content="Перманентный макияж губ и бровей. Естественная красота на годы.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&h=800&fit=crop">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0d0d14;
-      --bg-card: #12121a;
-      --bg-elevated: #1a1a24;
-      --text: #e8e8f0;
-      --text-muted: #a0a0b0;
-      --accent: #8b5cf6;
-      --accent-hover: #a78bfa;
-      --accent-glow: rgba(139, 92, 246, 0.4);
-      --accent-soft: rgba(139, 92, 246, 0.12);
+      --bg: #0f0f14;
+      --bg-card: #16161d;
+      --bg-input: #1c1c26;
+      --text: #eaeaf0;
+      --text-muted: #9a9ab0;
+      --accent: #c084fc;
+      --accent-deep: #a855f7;
+      --accent-glow: rgba(168, 85, 247, 0.35);
+      --accent-soft: rgba(168, 85, 247, 0.1);
       --border: #2a2a3a;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
       --radius: 16px;
       --radius-sm: 10px;
-      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
-      --glow: 0 0 30px var(--accent-glow), 0 0 60px rgba(139, 92, 246, 0.15);
-      --transition: 0.2s ease;
+      --transition: 0.3s ease;
     }
 
-    *,
-    *::before,
-    *::after {
+    html[data-theme="light"] {
+      --bg: #f8f7fc;
+      --bg-card: #ffffff;
+      --bg-input: #f0eef5;
+      --text: #1a1a2e;
+      --text-muted: #6b6b80;
+      --accent: #9333ea;
+      --accent-deep: #7e22ce;
+      --accent-glow: rgba(147, 51, 234, 0.25);
+      --accent-soft: rgba(147, 51, 234, 0.08);
+      --border: #e0dfe6;
+    }
+
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: var(--font-sans);
-      background: linear-gradient(135deg, #0d0d14 0%, #12121a 40%, #0f0f1a 70%, #0d0d14 100%);
+      font-family: var(--font);
+      background: var(--bg);
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
-      overflow-x: hidden;
+      transition: background var(--transition), color var(--transition);
     }
 
-    .noise {
+    .theme-toggle {
       position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.03;
-      z-index: 1;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      top: 1.25rem;
+      right: 1.25rem;
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition), border-color var(--transition);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
     }
 
     .hero {
-      position: relative;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem 1.5rem;
-      z-index: 0;
+      padding: 3rem 1.5rem;
+      position: relative;
     }
 
     .hero-inner {
       text-align: center;
-      max-width: 560px;
+      max-width: 600px;
     }
 
-    .hero-avatar {
-      width: 96px;
-      height: 96px;
-      margin: 0 auto 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--accent) 0%, #7c3aed 100%);
+    .hero-photo {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 2rem;
       border-radius: 50%;
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: white;
-      box-shadow: 0 0 30px var(--accent-glow);
-      border: 3px solid rgba(139, 92, 246, 0.5);
+      overflow: hidden;
+      border: 4px solid var(--accent);
+      box-shadow: 0 0 40px var(--accent-glow), 0 8px 32px rgba(0,0,0,0.3);
+      transition: box-shadow var(--transition), border-color var(--transition);
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .hero-name {
-      font-size: 1.75rem;
+      font-size: 2.5rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.35rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .hero-role {
-      font-size: 1rem;
+      font-size: 1.15rem;
       color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 0.75rem;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.02em;
     }
 
     .hero-description {
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       color: var(--text-muted);
-      line-height: 1.7;
-      max-width: 400px;
+      line-height: 1.75;
+      max-width: 480px;
       margin: 0 auto 2rem;
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: linear-gradient(135deg, var(--accent-deep), var(--accent));
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    .hero-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px var(--accent-glow);
     }
 
     .scroll-hint {
@@ -115,66 +174,52 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.75rem;
+      gap: 0.4rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
     }
 
-    .scroll-icon {
-      width: 24px;
-      height: 40px;
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      position: relative;
-    }
-
-    .scroll-icon::after {
-      content: '';
-      position: absolute;
-      top: 6px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 4px;
-      height: 8px;
+    .scroll-dot {
+      width: 6px;
+      height: 6px;
       background: var(--accent);
-      border-radius: 2px;
-      animation: scrollBounce 2s ease-in-out infinite;
+      border-radius: 50%;
+      animation: bounce 2s ease-in-out infinite;
     }
 
-    @keyframes scrollBounce {
-      0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
-      50% { opacity: 0.5; transform: translateX(-50%) translateY(8px); }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); opacity: 1; }
+      50% { transform: translateY(10px); opacity: 0.4; }
     }
 
     .section {
-      position: relative;
-      padding: 4rem 1.5rem;
-      z-index: 0;
+      padding: 5rem 1.5rem;
     }
 
     .container {
-      max-width: 640px;
+      max-width: 720px;
       margin: 0 auto;
     }
 
     .section-title {
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
       margin-bottom: 2rem;
-      color: var(--text);
+      position: relative;
+      display: inline-block;
     }
 
     .section-title::after {
       content: '';
-      display: block;
-      width: 48px;
-      height: 4px;
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 40px;
+      height: 3px;
       background: var(--accent);
       border-radius: 2px;
-      margin-top: 0.5rem;
     }
 
     .about-content {
@@ -185,57 +230,166 @@
 
     .about-content p {
       color: var(--text-muted);
-      font-size: 1rem;
-      line-height: 1.75;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      transition: color var(--transition);
     }
 
-    .contact-block p {
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
+    .services {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: background var(--transition), border-color var(--transition);
     }
 
-    .contact-links {
-      display: flex;
-      flex-wrap: wrap;
+    .services-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      color: var(--accent);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
     }
 
-    .contact-item {
-      display: flex;
-      flex-direction: column;
-      padding: 1rem 1.25rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+    .service-item {
+      padding: 1rem;
+      background: var(--bg-input);
       border-radius: var(--radius-sm);
-      text-decoration: none;
-      color: inherit;
-      transition: border-color var(--transition), background var(--transition);
-      min-width: 180px;
+      transition: background var(--transition);
     }
 
-    .contact-item:hover {
+    .service-item h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    .service-item p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      transition: color var(--transition);
+    }
+
+    .contact-email:hover { color: var(--accent); }
+
+    .social-links {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 1.2rem;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all var(--transition);
+    }
+
+    .social-link:hover {
       border-color: var(--accent);
       background: var(--accent-soft);
+      color: var(--accent);
     }
 
-    .contact-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    .contact-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .contact-form h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
       color: var(--text-muted);
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.35rem;
+      font-weight: 500;
     }
 
-    .contact-value {
-      font-size: 1rem;
-      font-weight: 500;
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
       color: var(--text);
+      font-family: var(--font);
+      font-size: 0.95rem;
+      transition: border-color var(--transition), background var(--transition);
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 0.85rem;
+      background: linear-gradient(135deg, var(--accent-deep), var(--accent));
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+
+    .form-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px var(--accent-glow);
     }
 
     .footer {
       padding: 2rem 1.5rem;
       text-align: center;
       border-top: 1px solid var(--border);
+      transition: border-color var(--transition);
     }
 
     .footer p {
@@ -243,78 +397,103 @@
       color: var(--text-muted);
     }
 
-    @media (max-width: 480px) {
-      .hero {
-        padding: 1.5rem 1rem;
-      }
-
-      .hero-name {
-        font-size: 1.5rem;
-      }
-
-      .hero-role {
-        font-size: 0.95rem;
-      }
-
-      .section {
-        padding: 3rem 1rem;
-      }
-
-      .contact-item {
-        min-width: 100%;
-      }
+    @media (max-width: 600px) {
+      .hero-name { font-size: 1.8rem; }
+      .hero-photo { width: 140px; height: 140px; }
+      .hero-role { font-size: 1rem; }
+      .hero-description { font-size: 0.95rem; }
+      .section { padding: 3.5rem 1rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .social-links { flex-wrap: wrap; }
     }
   </style>
 </head>
 <body>
-  <div class="noise"></div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">&#9728;</button>
 
   <header class="hero">
     <div class="hero-inner">
-      <div class="hero-avatar">ЯМ</div>
+      <div class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400&h=400&fit=crop&crop=face" alt="Яна Морозова" loading="eager">
+      </div>
       <h1 class="hero-name">Яна Морозова</h1>
       <p class="hero-role">Мастер по перманентному макияжу</p>
-      <p class="hero-description">Губы, брови — естественная красота на годы. Консультация и запись.</p>
+      <p class="hero-description">Делаю губы и брови с эффектом естественной красоты. Сертифицированный мастер с опытом более 5 лет. Индивидуальный подход, стерильность и гарантия результата.</p>
+      <a href="#contact" class="hero-btn">Свяжитесь со мной</a>
     </div>
     <div class="scroll-hint">
-      <span>Листайте вниз</span>
-      <div class="scroll-icon"></div>
+      <div class="scroll-dot"></div>
     </div>
   </header>
 
   <main>
-    <section class="section about" id="about">
+    <section class="section" id="about">
       <div class="container">
-        <h2 class="section-title">Обо мне</h2>
+        <h2 class="section-title">О себе</h2>
         <div class="about-content">
-          <p>
-            Сертифицированный мастер по перманентному макияжу. Делаю губы и брови: от естественного вида до чёткой графики. Использую гипоаллергенные пигменты, работаю в стерильных условиях.
-          </p>
-          <p>
-            Опыт — более 5 лет, сотни довольных клиентов. Индивидуальный подход к каждому: подбираю форму и оттенок под ваш тип внешности и пожелания.
-          </p>
-          <p>
-            Результат сохраняется 1–2 года. Провожу бесплатные консультации перед процедурой и даю подробные рекомендации по уходу.
-          </p>
+          <p>Я — сертифицированный мастер по перманентному макияжу. Специализируюсь на технике губ и бровей: от нежного акварельного эффекта до чёткой графики. Работаю исключительно с гипоаллергенными пигментами премиум-класса в стерильных условиях, потому что здоровье и безопасность клиента — мой главный приоритет.</p>
+          <p>За более чем 5 лет практики я выполнила сотни процедур и помогла клиенткам обрести уверенность в своей внешности. Мой подход — это индивидуальный подбор формы и оттенка с учётом типа лица, цвета кожи и ваших личных предпочтений. Каждая работа начинается с детальной консультации, чтобы результат превзошёл ожидания.</p>
+          <p>Результат перманентного макияжа сохраняется от 1 до 2 лет. Перед каждой процедурой я провожу бесплатную консультацию, а после — даю подробные рекомендации по уходу. Моя цель — чтобы вы просыпались с идеальным макияжем и чувствовали себя прекрасно каждый день.</p>
         </div>
       </div>
     </section>
 
-    <section class="section contact" id="contact">
+    <section class="section" id="services">
+      <div class="container">
+        <h2 class="section-title">Услуги</h2>
+        <div class="services">
+          <p class="services-title">Что я делаю</p>
+          <div class="services-grid">
+            <div class="service-item">
+              <h4>Губы</h4>
+              <p>Акварельная техника, контур с растушёвкой, полное заполнение</p>
+            </div>
+            <div class="service-item">
+              <h4>Брови</h4>
+              <p>Пудровое напыление, микроблейдинг, комбинированная техника</p>
+            </div>
+            <div class="service-item">
+              <h4>Коррекция</h4>
+              <p>Обновление и освежение ранее выполненного перманента</p>
+            </div>
+            <div class="service-item">
+              <h4>Консультация</h4>
+              <p>Бесплатный подбор формы, оттенка и техники</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
       <div class="container">
         <h2 class="section-title">Контакты</h2>
-        <div class="contact-block">
-          <p>Напишите мне — отвечу в ближайшее время.</p>
-          <div class="contact-links">
-            <a href="mailto:demo@example.com" class="contact-item">
-              <span class="contact-label">Email</span>
-              <span class="contact-value">demo@example.com</span>
-            </a>
-            <a href="https://t.me/demo_portfolio" class="contact-item" target="_blank" rel="noopener">
-              <span class="contact-label">Telegram</span>
-              <span class="contact-value">@demo_portfolio</span>
-            </a>
-          </div>
+
+        <a href="mailto:demo@example.com" class="contact-email">&#128231; demo@example.com</a>
+
+        <div class="social-links">
+          <a href="https://t.me/demo_portfolio" class="social-link" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://instagram.com/" class="social-link" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://wa.me/" class="social-link" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+
+        <div class="contact-form">
+          <h3>Написать мне</h3>
+          <form id="contactForm" onsubmit="return handleSubmit(event)">
+            <div class="form-group">
+              <label for="name">Имя</label>
+              <input type="text" id="name" name="name" placeholder="Ваше имя" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="email@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Сообщение</label>
+              <textarea id="message" name="message" placeholder="Напишите ваш вопрос или пожелание..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit">Отправить</button>
+          </form>
         </div>
       </div>
     </section>
@@ -322,12 +501,40 @@
 
   <footer class="footer">
     <div class="container">
-      <p>© <span id="year"></span> Яна Морозова. Перманентный макияж — губы, брови.</p>
+      <p>&copy; <span id="year"></span> Яна Морозова. Перманентный макияж — губы, брови.</p>
     </div>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    const toggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      html.setAttribute('data-theme', saved);
+      toggle.textContent = saved === 'light' ? '\u{1F319}' : '\u{2600}';
+    }
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      toggle.textContent = next === 'light' ? '\u{1F319}' : '\u{2600}';
+    });
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Отправлено!';
+      btn.style.background = '#22c55e';
+      setTimeout(() => {
+        btn.textContent = 'Отправить';
+        btn.style.background = '';
+        e.target.reset();
+      }, 2000);
+      return false;
+    }
   </script>
 </body>
 </html>
