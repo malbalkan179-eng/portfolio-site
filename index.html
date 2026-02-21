@@ -4,56 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Оксана Колпакова — Мастер по перманентному макияжу</title>
-  <meta name="description" content="Перманентный макияж губ и бровей. Мастер Оксана Колпакова — естественная красота, изящество лица.">
-  <meta property="og:title" content="Оксана Колпакова — Мастер по перманентному макияжу">
-  <meta property="og:description" content="Перманентный макияж губ и бровей. Естественная красота на годы.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&h=800&fit=crop">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Перманентный макияж губ и бровей. Мастер Оксана Колпакова — естественная красота на годы.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-deep: #0d0911;
+      --bg: #0d0911;
       --bg-card: #151019;
-      --bg-block: #1a1521;
+      --bg-block: #1a1222;
       --text: #f5eef4;
       --text-muted: #b8a4b8;
       --rose: #e8b4c8;
-      --rose-deep: #d496a7;
       --sakura: #ffb7c5;
-      --sakura-glow: #ffc0cb;
       --gold: #f0d5b8;
-      --gold-glow: #ffe4c4;
       --peach: #ffccd4;
       --accent: #f0a6c2;
       --accent-deep: #e88ba8;
       --border: rgba(255, 183, 197, 0.15);
-      --glow-soft: rgba(255, 183, 197, 0.25);
-      --glow-strong: rgba(255, 183, 197, 0.5);
+      --glow: rgba(255, 183, 197, 0.3);
       --font: 'Inter', system-ui, sans-serif;
       --font-display: 'Cormorant Garamond', Georgia, serif;
-      --font-jp: 'Noto Serif JP', serif;
       --radius: 20px;
       --radius-sm: 12px;
-      --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: 0.4s ease;
     }
 
     html[data-theme="light"] {
-      --bg-deep: #fff0f3;
+      --bg: #fff0f3;
       --bg-card: #fff5f7;
       --bg-block: #ffffff;
       --text: #2d1a22;
       --text-muted: #7a5a68;
       --rose: #d4879d;
-      --rose-deep: #c06a82;
       --sakura: #ff8fa3;
       --gold: #c9a87c;
-      --peach: #ffd6de;
       --accent: #e88ba8;
+      --accent-deep: #d06a88;
       --border: rgba(255, 143, 163, 0.3);
-      --glow-soft: rgba(255, 143, 163, 0.15);
-      --glow-strong: rgba(255, 143, 163, 0.4);
+      --glow: rgba(255, 143, 163, 0.2);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -61,7 +50,7 @@
 
     body {
       font-family: var(--font);
-      background: var(--bg-deep);
+      background: var(--bg);
       color: var(--text);
       line-height: 1.7;
       min-height: 100vh;
@@ -69,61 +58,32 @@
       transition: background var(--transition), color var(--transition);
     }
 
-    /* Фон с частицами */
-    .particles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: var(--sakura);
-      border-radius: 50%;
-      opacity: 0;
-      animation: float 8s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { opacity: 0; transform: translateY(100vh) scale(0); }
-      10% { opacity: 0.8; }
-      90% { opacity: 0.4; }
-      100% { opacity: 0; transform: translateY(-20px) scale(1); }
-    }
-
-    /* Переключатель темы */
     .theme-toggle {
       position: fixed;
-      top: 1.5rem;
-      right: 1.5rem;
+      top: 1.25rem;
+      right: 1.25rem;
       z-index: 100;
-      width: 48px;
-      height: 48px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       border: 1px solid var(--border);
       background: var(--bg-card);
       color: var(--text);
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all var(--transition);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px var(--glow-soft);
+      box-shadow: 0 4px 16px var(--glow);
     }
 
     .theme-toggle:hover {
-      transform: rotate(15deg) scale(1.05);
-      box-shadow: 0 6px 30px var(--glow-strong);
       border-color: var(--sakura);
+      transform: rotate(15deg) scale(1.05);
     }
 
-    /* HERO секция */
+    /* HERO */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -131,15 +91,10 @@
       justify-content: center;
       padding: 4rem 2rem;
       position: relative;
-      z-index: 1;
     }
 
-    .hero-content {
-      text-align: center;
-      max-width: 560px;
-    }
+    .hero-content { text-align: center; max-width: 560px; }
 
-    /* Аватар с переливающимся кольцом */
     .avatar-wrap {
       position: relative;
       width: 200px;
@@ -151,32 +106,13 @@
       position: absolute;
       inset: -6px;
       border-radius: 50%;
-      background: conic-gradient(
-        from 0deg,
-        var(--sakura), var(--gold), var(--rose), var(--peach), var(--gold), var(--sakura)
-      );
-      animation: ringRotate 6s linear infinite;
-      opacity: 0.7;
+      background: conic-gradient(var(--sakura), var(--gold), var(--rose), var(--peach), var(--gold), var(--sakura));
+      animation: spin 6s linear infinite;
+      opacity: 0.6;
       filter: blur(8px);
     }
 
-    @keyframes ringRotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .avatar-ring-2 {
-      position: absolute;
-      inset: -12px;
-      border-radius: 50%;
-      background: conic-gradient(
-        from 180deg,
-        var(--gold), var(--rose), var(--sakura), var(--rose), var(--gold)
-      );
-      animation: ringRotate 8s linear infinite reverse;
-      opacity: 0.4;
-      filter: blur(16px);
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     .avatar {
       position: relative;
@@ -185,125 +121,73 @@
       border-radius: 50%;
       overflow: hidden;
       border: 3px solid var(--sakura);
-      box-shadow: 
-        0 0 40px var(--glow-strong),
-        0 10px 40px rgba(0,0,0,0.4);
+      box-shadow: 0 0 40px var(--glow);
       transition: all var(--transition);
-      animation: avatarGlow 4s ease-in-out infinite;
+      animation: glow 4s ease-in-out infinite;
     }
 
-    @keyframes avatarGlow {
-      0%, 100% { box-shadow: 0 0 40px var(--glow-strong), 0 10px 40px rgba(0,0,0,0.4); }
-      50% { box-shadow: 0 0 60px var(--glow-strong), 0 0 80px var(--glow-soft), 0 10px 40px rgba(0,0,0,0.3); }
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 40px var(--glow); }
+      50% { box-shadow: 0 0 60px var(--glow), 0 0 80px rgba(255,183,197,0.15); }
     }
 
-    .avatar:hover {
-      transform: scale(1.05);
-      border-color: var(--gold);
-    }
-
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .avatar:hover { transform: scale(1.06); border-color: var(--gold); }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
 
     .hero-name {
       font-family: var(--font-display);
-      font-size: 3.2rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
+      font-size: 3rem;
+      font-weight: 600;
       margin-bottom: 0.3rem;
-      background: linear-gradient(135deg, var(--text) 0%, var(--sakura) 50%, var(--gold) 100%);
+      background: linear-gradient(135deg, var(--text), var(--sakura), var(--gold));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .hero-subtitle {
-      font-family: var(--font-jp);
-      font-size: 1.2rem;
-      color: var(--rose-deep);
+    .hero-role {
+      font-size: 1.15rem;
+      color: var(--rose);
       font-weight: 500;
       margin-bottom: 1.5rem;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.05em;
     }
 
     .hero-desc {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: var(--text-muted);
       line-height: 1.8;
-      max-width: 440px;
       margin: 0 auto 2rem;
     }
 
     .hero-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
       padding: 1rem 2.5rem;
       background: linear-gradient(135deg, var(--accent-deep), var(--accent), var(--rose));
       background-size: 200% 200%;
-      animation: btnFlow 4s ease infinite;
+      animation: flow 4s ease infinite;
       color: #fff;
       border: none;
       border-radius: 50px;
       font-size: 1.05rem;
       font-weight: 600;
       text-decoration: none;
-      cursor: pointer;
-      transition: all var(--transition);
-      box-shadow: 0 6px 30px var(--glow-strong);
+      transition: all 0.3s;
+      box-shadow: 0 6px 30px var(--glow);
     }
 
-    @keyframes btnFlow {
+    @keyframes flow {
       0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
     }
 
-    .hero-btn:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 10px 40px var(--glow-strong);
-    }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 3rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--text-muted);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-    }
-
-    .scroll-dot {
-      width: 5px;
-      height: 5px;
-      background: var(--sakura);
-      border-radius: 50%;
-      animation: scrollBounce 2s ease-in-out infinite;
-    }
-
-    @keyframes scrollBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(8px); }
-    }
+    .hero-btn:hover { transform: translateY(-3px) scale(1.03); }
 
     /* Блоки */
-    .blocks {
-      position: relative;
-      z-index: 1;
-      padding: 2rem 1.5rem 5rem;
-    }
-
-    .container {
-      max-width: 720px;
-      margin: 0 auto;
-    }
+    .blocks { padding: 2rem 1.5rem 4rem; }
+    .container { max-width: 760px; margin: 0 auto; }
 
     .block {
       background: var(--bg-block);
@@ -319,34 +203,23 @@
     .block::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
+      top: 0; left: 0; right: 0;
+      height: 2px;
       background: linear-gradient(90deg, transparent, var(--sakura), var(--gold), transparent);
-      opacity: 0.5;
+      opacity: 0.6;
     }
 
     .block:hover {
       border-color: var(--rose);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px var(--glow-soft);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 50px var(--glow);
     }
 
     .block-title {
       font-family: var(--font-display);
       font-size: 1.8rem;
-      font-weight: 500;
+      font-weight: 600;
       margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .block-title::before {
-      content: '✦';
-      color: var(--sakura);
-      font-size: 1rem;
     }
 
     .block-text {
@@ -355,15 +228,62 @@
       line-height: 1.85;
     }
 
-    .block-text + .block-text {
-      margin-top: 1rem;
+    .block-text + .block-text { margin-top: 1rem; }
+
+    /* Фото-блоки */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
     }
 
-    /* Услуги - карточки */
+    .photo-card {
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3;
+      transition: all var(--transition);
+      border: 1px solid var(--border);
+    }
+
+    .photo-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 40px var(--glow);
+      border-color: var(--sakura);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition);
+    }
+
+    .photo-card:hover img { transform: scale(1.08); }
+
+    .photo-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.75rem 1rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .photo-card-wide {
+      grid-column: span 2;
+      aspect-ratio: 16/7;
+    }
+
+    /* Услуги */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
+      gap: 1rem;
     }
 
     .service-card {
@@ -377,78 +297,60 @@
 
     .service-card:hover {
       border-color: var(--sakura);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px var(--glow-soft);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px var(--glow);
     }
 
-    .service-icon {
-      font-size: 2rem;
-      margin-bottom: 0.75rem;
-    }
+    .service-icon { font-size: 2rem; margin-bottom: 0.6rem; }
 
     .service-card h4 {
       font-family: var(--font-display);
       font-size: 1.15rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-      color: var(--rose-deep);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--rose);
     }
 
-    .service-card p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
+    .service-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
 
     /* Контакты */
     .contact-email {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       color: var(--text);
       text-decoration: none;
       margin-bottom: 1.5rem;
-      padding: 0.75rem 1.5rem;
+      padding: 0.7rem 1.5rem;
       background: var(--bg-card);
       border-radius: 50px;
       border: 1px solid var(--border);
       transition: all var(--transition);
     }
 
-    .contact-email:hover {
-      border-color: var(--sakura);
-      box-shadow: 0 4px 20px var(--glow-soft);
-    }
+    .contact-email:hover { border-color: var(--sakura); }
 
-    .social-links {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
+    .social-links { display: flex; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
 
     .social-link {
-      display: inline-flex;
-      padding: 0.7rem 1.5rem;
+      padding: 0.65rem 1.4rem;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 50px;
       color: var(--text);
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 500;
       transition: all var(--transition);
     }
 
     .social-link:hover {
       border-color: var(--gold);
-      background: var(--glow-soft);
       color: var(--gold);
       transform: translateY(-2px);
     }
 
-    /* Форма */
     .form {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -459,134 +361,140 @@
     .form-title {
       font-family: var(--font-display);
       font-size: 1.3rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .form-group {
       margin-bottom: 1.25rem;
     }
+
+    .form-group { margin-bottom: 1.25rem; }
 
     .form-group label {
       display: block;
       font-size: 0.85rem;
       color: var(--text-muted);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
 
     .form-group input,
     .form-group textarea {
       width: 100%;
-      padding: 0.85rem 1.1rem;
+      padding: 0.8rem 1rem;
       background: var(--bg-block);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       color: var(--text);
       font-family: var(--font);
       font-size: 0.95rem;
-      transition: border-color var(--transition);
       outline: none;
+      transition: border-color var(--transition);
     }
 
     .form-group input:focus,
-    .form-group textarea:focus {
-      border-color: var(--sakura);
-    }
-
-    .form-group textarea {
-      min-height: 130px;
-      resize: vertical;
-    }
+    .form-group textarea:focus { border-color: var(--sakura); }
+    .form-group textarea { min-height: 120px; resize: vertical; }
 
     .form-submit {
       width: 100%;
-      padding: 1rem;
+      padding: 0.9rem;
       background: linear-gradient(135deg, var(--accent-deep), var(--accent), var(--rose));
       background-size: 200% 200%;
-      animation: btnFlow 4s ease infinite;
+      animation: flow 4s ease infinite;
       color: #fff;
       border: none;
       border-radius: var(--radius-sm);
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all var(--transition);
-      box-shadow: 0 4px 20px var(--glow-strong);
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px var(--glow);
     }
 
-    .form-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px var(--glow-strong);
-    }
+    .form-submit:hover { transform: translateY(-2px); }
 
-    /* Footer */
     .footer {
-      padding: 2.5rem 1.5rem;
+      padding: 2rem 1.5rem;
       text-align: center;
       border-top: 1px solid var(--border);
-      position: relative;
-      z-index: 1;
     }
 
-    .footer p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
+    .footer p { font-size: 0.85rem; color: var(--text-muted); }
 
     @media (max-width: 600px) {
       .hero-name { font-size: 2.2rem; }
       .avatar-wrap, .avatar { width: 150px; height: 150px; }
-      .services-grid { grid-template-columns: 1fr; }
+      .services-grid, .photo-grid { grid-template-columns: 1fr; }
+      .photo-card-wide { grid-column: span 1; }
       .block { padding: 1.75rem; }
     }
   </style>
 </head>
 <body>
-  <div class="particles" id="particles"></div>
   <button class="theme-toggle" id="themeToggle" aria-label="Сменить тему">&#9728;</button>
 
   <header class="hero">
     <div class="hero-content">
       <div class="avatar-wrap">
         <div class="avatar-ring"></div>
-        <div class="avatar-ring-2"></div>
         <div class="avatar">
-          <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400&h=400&fit=crop&crop=face" alt="Оксана Колпакова">
+          <img src="https://images.unsplash.com/photo-1620122303020-87ec826cf70c?w=400&h=400&fit=crop&crop=face" alt="Оксана Колпакова">
         </div>
       </div>
       <h1 class="hero-name">Оксана Колпакова</h1>
-      <p class="hero-subtitle">美的傳承 — Красота, що передається</p>
-      <p class="hero-desc">Перманентный макияж губ и бровей. Создаю изящество и гармонию вашего лица. Результат, который радует годами.</p>
-      <a href="#contact" class="hero-btn">🌸 Записаться на консультацию</a>
-    </div>
-    <div class="scroll-hint">
-      <div class="scroll-dot"></div>
+      <p class="hero-role">Мастер по перманентному макияжу губ и бровей</p>
+      <p class="hero-desc">Создаю естественную красоту, которая подчёркивает изящество вашего лица. Сертифицированный мастер с опытом более 5 лет.</p>
+      <a href="#contact" class="hero-btn">Записаться на консультацию</a>
     </div>
   </header>
 
   <div class="blocks">
     <div class="container">
+
       <!-- Блок 1: О себе -->
       <div class="block">
         <h2 class="block-title">О себе</h2>
-        <p class="block-text">
-          Я — мастер перманентного макияжа с более чем 5-летним опытом. Моя философия — это сочетание восточной эстетики и западных техник. Каждое лицо уникально, и я создаю дизайн, который подчеркнёт именно вашу красоту.
-        </p>
-        <p class="block-text">
-          Работаю только с премиальными гипоаллергенными пигментами в стерильных условиях. Результат сохраняется 1-2 года, а бесплатная коррекция входит в стоимость процедуры.
-        </p>
-        <p class="block-text">
-          Моя цель — чтобы вы просыпались идеальной каждый день. Индивидуальный подход и внимание к деталям — основа моей работы.
-        </p>
+        <p class="block-text">Я — мастер перманентного макияжа. Специализируюсь на губах и бровях: от нежной акварели до чёткой графики. Работаю с премиальными гипоаллергенными пигментами в стерильных условиях.</p>
+        <p class="block-text">Каждая работа начинается с консультации — подбираю форму и оттенок под ваш тип лица. Мой подход — внимание к деталям, индивидуальность и стремление к совершенству.</p>
+        <p class="block-text">Результат сохраняется 1–2 года. Бесплатная коррекция входит в стоимость. Моя цель — чтобы вы чувствовали себя прекрасно каждый день.</p>
       </div>
 
-      <!-- Блок 2: Услуги -->
+      <!-- Блок 2: Губы -->
+      <div class="block">
+        <h2 class="block-title">Перманент губ</h2>
+        <p class="block-text">Акварельная техника, контур с растушёвкой, полное заполнение цветом. Подбираю оттенок индивидуально — от нежного нюда до яркого натурального цвета. Губы выглядят свежо и естественно без ежедневного нанесения помады.</p>
+        <div class="photo-grid">
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1588528402605-3e4f8d4ddddb?w=500&h=375&fit=crop" alt="Красивые губы">
+            <div class="photo-label">Нежный натуральный оттенок</div>
+          </div>
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1597225638255-07a09e051f46?w=500&h=375&fit=crop" alt="Перманент губ">
+            <div class="photo-label">Акварельная техника</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Блок 3: Брови -->
+      <div class="block">
+        <h2 class="block-title">Перманент бровей</h2>
+        <p class="block-text">Пудровое напыление, микроблейдинг, комбинированная и волосковая техника. Создаю идеальную форму, которая гармонирует с вашим лицом. Брови выглядят натурально и ухоженно — словно вы родились с ними.</p>
+        <div class="photo-grid">
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1583001931096-959e9a1a6223?w=500&h=375&fit=crop&crop=face" alt="Идеальные брови">
+            <div class="photo-label">Пудровое напыление</div>
+          </div>
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&h=375&fit=crop&crop=face" alt="Красивые брови">
+            <div class="photo-label">Естественная форма</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Блок 4: Услуги и цены -->
       <div class="block">
         <h2 class="block-title">Услуги</h2>
         <div class="services-grid">
           <div class="service-card">
             <div class="service-icon">💋</div>
             <h4>Губы</h4>
-            <p>Акварельная техника, контур с растушёвкой, объёмное напыление</p>
+            <p>Акварель, контур с растушёвкой, полное заполнение</p>
           </div>
           <div class="service-card">
             <div class="service-icon">✨</div>
@@ -594,72 +502,57 @@
             <p>Пудровое напыление, микроблейдинг, волосковая техника</p>
           </div>
           <div class="service-card">
-            <div class="service-icon">🌸</div>
+            <div class="service-icon">🔄</div>
             <h4>Коррекция</h4>
             <p>Обновление цвета и формы ранее выполненного перманента</p>
           </div>
           <div class="service-card">
-            <div class="service-icon">🍵</div>
+            <div class="service-icon">💬</div>
             <h4>Консультация</h4>
             <p>Бесплатный подбор формы и оттенка для вашего типа лица</p>
           </div>
         </div>
       </div>
 
-      <!-- Блок 3: Контакты -->
+      <!-- Блок 5: Контакты -->
       <div class="block" id="contact">
-        <h2 class="block-title">Свяжитесь со мной</h2>
-        <a href="mailto:demo@example.com" class="contact-email">✉ demo@example.com</a>
-        
+        <h2 class="block-title">Контакты</h2>
+        <a href="mailto:demo@example.com" class="contact-email">&#128231; demo@example.com</a>
         <div class="social-links">
-          <a href="https://t.me/demo_portfolio" class="social-link" target="_blank">Telegram</a>
-          <a href="https://instagram.com/" class="social-link" target="_blank">Instagram</a>
-          <a href="https://wa.me/" class="social-link" target="_blank">WhatsApp</a>
+          <a href="https://t.me/demo_portfolio" class="social-link" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://instagram.com/" class="social-link" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://wa.me/" class="social-link" target="_blank" rel="noopener">WhatsApp</a>
         </div>
-
         <div class="form">
-          <h3 class="form-title">🌸 Оставьте заявку</h3>
+          <h3 class="form-title">Оставьте заявку</h3>
           <form onsubmit="return handleSubmit(event)">
             <div class="form-group">
               <label for="name">Имя</label>
               <input type="text" id="name" placeholder="Ваше имя" required>
             </div>
             <div class="form-group">
-              <label for="email">Телефон или Email</label>
-              <input type="text" id="email" placeholder="+7 999 000-00-00" required>
+              <label for="phone">Телефон или Email</label>
+              <input type="text" id="phone" placeholder="+7 999 000-00-00" required>
             </div>
             <div class="form-group">
               <label for="message">Сообщение</label>
-              <textarea id="message" placeholder="Напишите, какая услуга вас интересует..."></textarea>
+              <textarea id="message" placeholder="Какая услуга вас интересует..."></textarea>
             </div>
             <button type="submit" class="form-submit">Отправить заявку</button>
           </form>
         </div>
       </div>
+
     </div>
   </div>
 
   <footer class="footer">
-    <p>© <span id="year"></span> Оксана Колпакова. Перманентный макияж — губы и брови.</p>
+    <p>&copy; <span id="year"></span> Оксана Колпакова. Перманентный макияж — губы и брови.</p>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Частицы
-    (function() {
-      const container = document.getElementById('particles');
-      for (let i = 0; i < 15; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        p.style.left = Math.random() * 100 + 'vw';
-        p.style.animationDelay = Math.random() * 8 + 's';
-        p.style.animationDuration = (6 + Math.random() * 6) + 's';
-        container.appendChild(p);
-      }
-    })();
-
-    // Тема
     const toggle = document.getElementById('themeToggle');
     const html = document.documentElement;
     const saved = localStorage.getItem('theme');
@@ -674,11 +567,10 @@
       toggle.textContent = next === 'light' ? '\u{1F319}' : '\u{2600}';
     });
 
-    // Форма
     function handleSubmit(e) {
       e.preventDefault();
       const btn = e.target.querySelector('.form-submit');
-      btn.textContent = '🌸 Отправлено!';
+      btn.textContent = 'Отправлено!';
       btn.style.background = 'linear-gradient(135deg, #22c55e, #4ade80)';
       setTimeout(() => {
         btn.textContent = 'Отправить заявку';
