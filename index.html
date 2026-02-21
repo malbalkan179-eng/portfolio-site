@@ -10,39 +10,42 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0d0911;
-      --bg-card: #151019;
-      --bg-block: #1a1222;
-      --text: #f5eef4;
-      --text-muted: #b8a4b8;
-      --rose: #e8b4c8;
-      --sakura: #ffb7c5;
-      --gold: #f0d5b8;
-      --peach: #ffccd4;
-      --accent: #f0a6c2;
-      --accent-deep: #e88ba8;
-      --border: rgba(255, 183, 197, 0.15);
-      --glow: rgba(255, 183, 197, 0.3);
+      --bg: #12041e;
+      --bg2: #1a0630;
+      --bg-card: rgba(255,255,255,0.06);
+      --bg-block: rgba(255,255,255,0.05);
+      --text: #fff;
+      --text-muted: #d4b8e8;
+      --pink: #ff4d9a;
+      --hot-pink: #ff2d87;
+      --magenta: #ff007f;
+      --rose: #ff6eb4;
+      --gold: #ffb347;
+      --orange: #ff8c42;
+      --peach: #ffa07a;
+      --violet: #c77dff;
+      --cyan: #00e5ff;
+      --border: rgba(255,77,154,0.25);
+      --glow-pink: rgba(255,45,135,0.5);
+      --glow-gold: rgba(255,179,71,0.4);
+      --glow-violet: rgba(199,125,255,0.4);
       --font: 'Inter', system-ui, sans-serif;
       --font-display: 'Cormorant Garamond', Georgia, serif;
       --radius: 20px;
-      --radius-sm: 12px;
-      --transition: 0.4s ease;
+      --radius-sm: 14px;
     }
 
     html[data-theme="light"] {
-      --bg: #fff0f3;
-      --bg-card: #fff5f7;
-      --bg-block: #ffffff;
-      --text: #2d1a22;
-      --text-muted: #7a5a68;
-      --rose: #d4879d;
-      --sakura: #ff8fa3;
-      --gold: #c9a87c;
-      --accent: #e88ba8;
-      --accent-deep: #d06a88;
-      --border: rgba(255, 143, 163, 0.3);
-      --glow: rgba(255, 143, 163, 0.2);
+      --bg: #fff5f9;
+      --bg2: #ffe8f0;
+      --bg-card: rgba(255,77,154,0.08);
+      --bg-block: rgba(255,255,255,0.9);
+      --text: #2a0e1e;
+      --text-muted: #8b4a6a;
+      --border: rgba(255,45,135,0.2);
+      --glow-pink: rgba(255,45,135,0.25);
+      --glow-gold: rgba(255,179,71,0.2);
+      --glow-violet: rgba(199,125,255,0.2);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -55,108 +58,198 @@
       line-height: 1.7;
       min-height: 100vh;
       overflow-x: hidden;
-      transition: background var(--transition), color var(--transition);
+      position: relative;
     }
 
+    /* === ФОНОВОЕ СВЕЧЕНИЕ === */
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .bg-glow .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.35;
+      animation: orbFloat 12s ease-in-out infinite alternate;
+    }
+
+    .bg-glow .orb:nth-child(1) {
+      width: 500px; height: 500px;
+      background: var(--hot-pink);
+      top: -10%; left: -10%;
+      animation-delay: 0s;
+    }
+
+    .bg-glow .orb:nth-child(2) {
+      width: 400px; height: 400px;
+      background: var(--violet);
+      top: 30%; right: -8%;
+      animation-delay: -3s;
+      animation-duration: 15s;
+    }
+
+    .bg-glow .orb:nth-child(3) {
+      width: 450px; height: 450px;
+      background: var(--gold);
+      bottom: -5%; left: 20%;
+      animation-delay: -6s;
+      animation-duration: 18s;
+    }
+
+    .bg-glow .orb:nth-child(4) {
+      width: 350px; height: 350px;
+      background: var(--cyan);
+      top: 60%; left: 50%;
+      animation-delay: -9s;
+      animation-duration: 20s;
+    }
+
+    @keyframes orbFloat {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(60px, -40px) scale(1.15); }
+      66% { transform: translate(-40px, 50px) scale(0.9); }
+      100% { transform: translate(30px, -20px) scale(1.05); }
+    }
+
+    /* === ЧАСТИЦЫ: БЛЁСТКИ + ЛЕПЕСТКИ + ПТИЦЫ + СОЛНЦЕ === */
+    #particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+
+    /* === ОСНОВНОЙ КОНТЕНТ === */
+    .page-content { position: relative; z-index: 2; }
+
+    /* === ТЕМА === */
     .theme-toggle {
       position: fixed;
       top: 1.25rem;
       right: 1.25rem;
       z-index: 100;
-      width: 46px;
-      height: 46px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      border: 1px solid var(--border);
+      border: 2px solid var(--pink);
       background: var(--bg-card);
+      backdrop-filter: blur(10px);
       color: var(--text);
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all var(--transition);
-      box-shadow: 0 4px 16px var(--glow);
+      box-shadow: 0 0 20px var(--glow-pink), 0 0 40px var(--glow-pink);
+      transition: all 0.3s;
+      animation: btnPulse 3s ease-in-out infinite;
     }
 
-    .theme-toggle:hover {
-      border-color: var(--sakura);
-      transform: rotate(15deg) scale(1.05);
+    @keyframes btnPulse {
+      0%, 100% { box-shadow: 0 0 20px var(--glow-pink), 0 0 40px var(--glow-pink); }
+      50% { box-shadow: 0 0 30px var(--glow-pink), 0 0 60px var(--glow-pink), 0 0 80px var(--glow-violet); }
     }
 
-    /* HERO */
+    .theme-toggle:hover { transform: rotate(20deg) scale(1.1); }
+
+    /* === HERO === */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 4rem 2rem;
-      position: relative;
     }
 
-    .hero-content { text-align: center; max-width: 560px; }
+    .hero-content { text-align: center; max-width: 580px; }
 
     .avatar-wrap {
       position: relative;
-      width: 200px;
-      height: 200px;
+      width: 220px;
+      height: 220px;
       margin: 0 auto 2.5rem;
     }
 
     .avatar-ring {
       position: absolute;
-      inset: -6px;
+      inset: -10px;
       border-radius: 50%;
-      background: conic-gradient(var(--sakura), var(--gold), var(--rose), var(--peach), var(--gold), var(--sakura));
-      animation: spin 6s linear infinite;
-      opacity: 0.6;
-      filter: blur(8px);
+      background: conic-gradient(var(--hot-pink), var(--gold), var(--violet), var(--cyan), var(--rose), var(--orange), var(--hot-pink));
+      animation: spin 4s linear infinite;
+      filter: blur(10px);
+      opacity: 0.8;
+    }
+
+    .avatar-ring-2 {
+      position: absolute;
+      inset: -16px;
+      border-radius: 50%;
+      background: conic-gradient(var(--cyan), var(--magenta), var(--gold), var(--violet), var(--cyan));
+      animation: spin 7s linear infinite reverse;
+      filter: blur(18px);
+      opacity: 0.5;
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
     .avatar {
       position: relative;
-      width: 200px;
-      height: 200px;
+      width: 220px;
+      height: 220px;
       border-radius: 50%;
       overflow: hidden;
-      border: 3px solid var(--sakura);
-      box-shadow: 0 0 40px var(--glow);
-      transition: all var(--transition);
-      animation: glow 4s ease-in-out infinite;
+      border: 3px solid var(--pink);
+      box-shadow: 0 0 40px var(--glow-pink), 0 0 80px var(--glow-violet);
+      transition: all 0.4s;
+      animation: avatarGlow 4s ease-in-out infinite;
     }
 
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 0 40px var(--glow); }
-      50% { box-shadow: 0 0 60px var(--glow), 0 0 80px rgba(255,183,197,0.15); }
+    @keyframes avatarGlow {
+      0%, 100% { box-shadow: 0 0 40px var(--glow-pink), 0 0 80px var(--glow-violet); transform: scale(1); }
+      50% { box-shadow: 0 0 60px var(--glow-pink), 0 0 100px var(--glow-gold), 0 0 120px var(--glow-violet); transform: scale(1.04); }
     }
 
-    .avatar:hover { transform: scale(1.06); border-color: var(--gold); }
+    .avatar:hover {
+      transform: scale(1.1) !important;
+      box-shadow: 0 0 80px var(--glow-pink), 0 0 120px var(--glow-gold), 0 0 160px var(--glow-violet);
+      border-color: var(--gold);
+    }
+
     .avatar img { width: 100%; height: 100%; object-fit: cover; }
 
     .hero-name {
       font-family: var(--font-display);
-      font-size: 3rem;
-      font-weight: 600;
+      font-size: 3.2rem;
+      font-weight: 700;
       margin-bottom: 0.3rem;
-      background: linear-gradient(135deg, var(--text), var(--sakura), var(--gold));
+      background: linear-gradient(135deg, #fff, var(--pink), var(--gold), var(--violet));
+      background-size: 300% 300%;
+      animation: nameShine 5s ease infinite;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      text-shadow: none;
+      filter: drop-shadow(0 0 20px var(--glow-pink));
+    }
+
+    @keyframes nameShine {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
     .hero-role {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       color: var(--rose);
       font-weight: 500;
       margin-bottom: 1.5rem;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
+      text-shadow: 0 0 20px var(--glow-pink);
     }
 
     .hero-desc {
       font-size: 1.05rem;
       color: var(--text-muted);
-      line-height: 1.8;
+      line-height: 1.85;
       margin: 0 auto 2rem;
     }
 
@@ -164,18 +257,34 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 1rem 2.5rem;
-      background: linear-gradient(135deg, var(--accent-deep), var(--accent), var(--rose));
-      background-size: 200% 200%;
+      padding: 1.1rem 3rem;
+      background: linear-gradient(135deg, var(--hot-pink), var(--magenta), var(--violet), var(--gold));
+      background-size: 300% 300%;
       animation: flow 4s ease infinite;
       color: #fff;
       border: none;
       border-radius: 50px;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.3s;
-      box-shadow: 0 6px 30px var(--glow);
+      box-shadow: 0 8px 40px var(--glow-pink), 0 0 60px var(--glow-violet);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-btn::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) rotate(25deg); }
+      100% { transform: translateX(100%) rotate(25deg); }
     }
 
     @keyframes flow {
@@ -183,43 +292,63 @@
       50% { background-position: 100% 50%; }
     }
 
-    .hero-btn:hover { transform: translateY(-3px) scale(1.03); }
+    .hero-btn:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 12px 50px var(--glow-pink), 0 0 80px var(--glow-gold);
+    }
 
-    /* Блоки */
+    /* === БЛОКИ === */
     .blocks { padding: 2rem 1.5rem 4rem; }
-    .container { max-width: 760px; margin: 0 auto; }
+    .container { max-width: 800px; margin: 0 auto; }
 
     .block {
       background: var(--bg-block);
+      backdrop-filter: blur(20px);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 2.5rem;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
       position: relative;
       overflow: hidden;
-      transition: all var(--transition);
+      transition: all 0.4s;
+      box-shadow: 0 0 30px rgba(255,45,135,0.1);
     }
 
     .block::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--sakura), var(--gold), transparent);
-      opacity: 0.6;
+      height: 3px;
+      background: linear-gradient(90deg, var(--hot-pink), var(--gold), var(--violet), var(--cyan));
+      background-size: 300% 100%;
+      animation: flow 6s ease infinite;
+    }
+
+    .block::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius);
+      box-shadow: inset 0 0 60px rgba(255,45,135,0.05);
+      pointer-events: none;
     }
 
     .block:hover {
-      border-color: var(--rose);
-      transform: translateY(-3px);
-      box-shadow: 0 16px 50px var(--glow);
+      border-color: var(--pink);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px var(--glow-pink), 0 0 40px var(--glow-violet);
     }
 
     .block-title {
       font-family: var(--font-display);
-      font-size: 1.8rem;
-      font-weight: 600;
+      font-size: 2rem;
+      font-weight: 700;
       margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--pink), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 10px var(--glow-pink));
     }
 
     .block-text {
@@ -230,11 +359,11 @@
 
     .block-text + .block-text { margin-top: 1rem; }
 
-    /* Фото-блоки */
+    /* === ФОТО-БЛОКИ === */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
+      gap: 1.25rem;
       margin-top: 1.5rem;
     }
 
@@ -243,77 +372,93 @@
       overflow: hidden;
       position: relative;
       aspect-ratio: 4/3;
-      transition: all var(--transition);
-      border: 1px solid var(--border);
+      transition: all 0.4s;
+      border: 2px solid var(--border);
+      box-shadow: 0 0 20px rgba(255,45,135,0.1);
     }
 
     .photo-card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 12px 40px var(--glow);
-      border-color: var(--sakura);
+      transform: scale(1.04);
+      box-shadow: 0 0 40px var(--glow-pink), 0 0 60px var(--glow-violet);
+      border-color: var(--pink);
     }
 
     .photo-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform var(--transition);
+      transition: transform 0.5s;
     }
 
-    .photo-card:hover img { transform: scale(1.08); }
+    .photo-card:hover img { transform: scale(1.1); }
 
     .photo-label {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 0.75rem 1rem;
-      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      padding: 1rem;
+      background: linear-gradient(transparent, rgba(18,4,30,0.85));
       color: #fff;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       font-weight: 500;
+      text-shadow: 0 0 10px var(--glow-pink);
     }
 
-    .photo-card-wide {
-      grid-column: span 2;
-      aspect-ratio: 16/7;
-    }
-
-    /* Услуги */
+    /* === УСЛУГИ === */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
+      gap: 1.25rem;
     }
 
     .service-card {
       background: var(--bg-card);
+      backdrop-filter: blur(10px);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
-      padding: 1.5rem;
+      padding: 1.8rem;
       text-align: center;
-      transition: all var(--transition);
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
     }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, var(--glow-pink) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .service-card:hover::before { opacity: 0.15; }
 
     .service-card:hover {
-      border-color: var(--sakura);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px var(--glow);
+      border-color: var(--pink);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px var(--glow-pink);
     }
 
-    .service-icon { font-size: 2rem; margin-bottom: 0.6rem; }
+    .service-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.8rem;
+      filter: drop-shadow(0 0 15px var(--glow-pink));
+    }
 
     .service-card h4 {
       font-family: var(--font-display);
-      font-size: 1.15rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.5rem;
       color: var(--rose);
+      text-shadow: 0 0 10px var(--glow-pink);
     }
 
-    .service-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
+    .service-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; position: relative; }
 
-    /* Контакты */
+    /* === КОНТАКТЫ === */
     .contact-email {
       display: inline-flex;
       align-items: center;
@@ -322,53 +467,66 @@
       color: var(--text);
       text-decoration: none;
       margin-bottom: 1.5rem;
-      padding: 0.7rem 1.5rem;
+      padding: 0.8rem 1.8rem;
       background: var(--bg-card);
+      backdrop-filter: blur(10px);
       border-radius: 50px;
       border: 1px solid var(--border);
-      transition: all var(--transition);
+      transition: all 0.3s;
+      box-shadow: 0 0 20px rgba(255,45,135,0.1);
     }
 
-    .contact-email:hover { border-color: var(--sakura); }
+    .contact-email:hover {
+      border-color: var(--pink);
+      box-shadow: 0 0 30px var(--glow-pink);
+    }
 
     .social-links { display: flex; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
 
     .social-link {
-      padding: 0.65rem 1.4rem;
+      padding: 0.7rem 1.5rem;
       background: var(--bg-card);
+      backdrop-filter: blur(10px);
       border: 1px solid var(--border);
       border-radius: 50px;
       color: var(--text);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 500;
-      transition: all var(--transition);
+      transition: all 0.3s;
+      box-shadow: 0 0 15px rgba(255,45,135,0.08);
     }
 
     .social-link:hover {
       border-color: var(--gold);
       color: var(--gold);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px var(--glow-gold);
+      text-shadow: 0 0 10px var(--glow-gold);
     }
 
     .form {
       background: var(--bg-card);
+      backdrop-filter: blur(20px);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 2rem;
+      box-shadow: 0 0 30px rgba(255,45,135,0.1);
     }
 
     .form-title {
       font-family: var(--font-display);
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       margin-bottom: 1.25rem;
+      color: var(--rose);
+      text-shadow: 0 0 10px var(--glow-pink);
     }
 
     .form-group { margin-bottom: 1.25rem; }
 
     .form-group label {
       display: block;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       color: var(--text-muted);
       margin-bottom: 0.35rem;
     }
@@ -376,183 +534,237 @@
     .form-group input,
     .form-group textarea {
       width: 100%;
-      padding: 0.8rem 1rem;
-      background: var(--bg-block);
+      padding: 0.85rem 1.1rem;
+      background: rgba(255,255,255,0.05);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       color: var(--text);
       font-family: var(--font);
       font-size: 0.95rem;
       outline: none;
-      transition: border-color var(--transition);
+      transition: all 0.3s;
     }
 
     .form-group input:focus,
-    .form-group textarea:focus { border-color: var(--sakura); }
+    .form-group textarea:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 20px var(--glow-pink);
+    }
+
     .form-group textarea { min-height: 120px; resize: vertical; }
 
     .form-submit {
       width: 100%;
-      padding: 0.9rem;
-      background: linear-gradient(135deg, var(--accent-deep), var(--accent), var(--rose));
+      padding: 1rem;
+      background: linear-gradient(135deg, var(--hot-pink), var(--magenta), var(--violet));
       background-size: 200% 200%;
       animation: flow 4s ease infinite;
       color: #fff;
       border: none;
       border-radius: var(--radius-sm);
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s;
-      box-shadow: 0 4px 20px var(--glow);
+      box-shadow: 0 8px 30px var(--glow-pink);
+      position: relative;
+      overflow: hidden;
     }
 
-    .form-submit:hover { transform: translateY(-2px); }
+    .form-submit::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
+      animation: shimmer 3s ease-in-out infinite;
+    }
 
+    .form-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px var(--glow-pink), 0 0 50px var(--glow-violet);
+    }
+
+    /* === ФУТЕР === */
     .footer {
-      padding: 2rem 1.5rem;
+      padding: 2.5rem 1.5rem;
       text-align: center;
       border-top: 1px solid var(--border);
+      position: relative;
     }
 
-    .footer p { font-size: 0.85rem; color: var(--text-muted); }
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--pink), transparent);
+      box-shadow: 0 0 15px var(--glow-pink);
+    }
+
+    .footer p { font-size: 0.88rem; color: var(--text-muted); }
 
     @media (max-width: 600px) {
       .hero-name { font-size: 2.2rem; }
-      .avatar-wrap, .avatar { width: 150px; height: 150px; }
+      .avatar-wrap, .avatar { width: 160px; height: 160px; }
       .services-grid, .photo-grid { grid-template-columns: 1fr; }
-      .photo-card-wide { grid-column: span 1; }
       .block { padding: 1.75rem; }
     }
   </style>
 </head>
 <body>
-  <button class="theme-toggle" id="themeToggle" aria-label="Сменить тему">&#9728;</button>
 
-  <header class="hero">
-    <div class="hero-content">
-      <div class="avatar-wrap">
-        <div class="avatar-ring"></div>
-        <div class="avatar">
-          <img src="https://images.unsplash.com/photo-1620122303020-87ec826cf70c?w=400&h=400&fit=crop&crop=face" alt="Оксана Колпакова">
-        </div>
-      </div>
-      <h1 class="hero-name">Оксана Колпакова</h1>
-      <p class="hero-role">Мастер по перманентному макияжу губ и бровей</p>
-      <p class="hero-desc">Создаю естественную красоту, которая подчёркивает изящество вашего лица. Сертифицированный мастер с опытом более 5 лет.</p>
-      <a href="#contact" class="hero-btn">Записаться на консультацию</a>
-    </div>
-  </header>
-
-  <div class="blocks">
-    <div class="container">
-
-      <!-- Блок 1: О себе -->
-      <div class="block">
-        <h2 class="block-title">О себе</h2>
-        <p class="block-text">Я — мастер перманентного макияжа. Специализируюсь на губах и бровях: от нежной акварели до чёткой графики. Работаю с премиальными гипоаллергенными пигментами в стерильных условиях.</p>
-        <p class="block-text">Каждая работа начинается с консультации — подбираю форму и оттенок под ваш тип лица. Мой подход — внимание к деталям, индивидуальность и стремление к совершенству.</p>
-        <p class="block-text">Результат сохраняется 1–2 года. Бесплатная коррекция входит в стоимость. Моя цель — чтобы вы чувствовали себя прекрасно каждый день.</p>
-      </div>
-
-      <!-- Блок 2: Губы -->
-      <div class="block">
-        <h2 class="block-title">Перманент губ</h2>
-        <p class="block-text">Акварельная техника, контур с растушёвкой, полное заполнение цветом. Подбираю оттенок индивидуально — от нежного нюда до яркого натурального цвета. Губы выглядят свежо и естественно без ежедневного нанесения помады.</p>
-        <div class="photo-grid">
-          <div class="photo-card">
-            <img src="https://images.unsplash.com/photo-1588528402605-3e4f8d4ddddb?w=500&h=375&fit=crop" alt="Красивые губы">
-            <div class="photo-label">Нежный натуральный оттенок</div>
-          </div>
-          <div class="photo-card">
-            <img src="https://images.unsplash.com/photo-1597225638255-07a09e051f46?w=500&h=375&fit=crop" alt="Перманент губ">
-            <div class="photo-label">Акварельная техника</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Блок 3: Брови -->
-      <div class="block">
-        <h2 class="block-title">Перманент бровей</h2>
-        <p class="block-text">Пудровое напыление, микроблейдинг, комбинированная и волосковая техника. Создаю идеальную форму, которая гармонирует с вашим лицом. Брови выглядят натурально и ухоженно — словно вы родились с ними.</p>
-        <div class="photo-grid">
-          <div class="photo-card">
-            <img src="https://images.unsplash.com/photo-1583001931096-959e9a1a6223?w=500&h=375&fit=crop&crop=face" alt="Идеальные брови">
-            <div class="photo-label">Пудровое напыление</div>
-          </div>
-          <div class="photo-card">
-            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&h=375&fit=crop&crop=face" alt="Красивые брови">
-            <div class="photo-label">Естественная форма</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Блок 4: Услуги и цены -->
-      <div class="block">
-        <h2 class="block-title">Услуги</h2>
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-icon">💋</div>
-            <h4>Губы</h4>
-            <p>Акварель, контур с растушёвкой, полное заполнение</p>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">✨</div>
-            <h4>Брови</h4>
-            <p>Пудровое напыление, микроблейдинг, волосковая техника</p>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">🔄</div>
-            <h4>Коррекция</h4>
-            <p>Обновление цвета и формы ранее выполненного перманента</p>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">💬</div>
-            <h4>Консультация</h4>
-            <p>Бесплатный подбор формы и оттенка для вашего типа лица</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Блок 5: Контакты -->
-      <div class="block" id="contact">
-        <h2 class="block-title">Контакты</h2>
-        <a href="mailto:demo@example.com" class="contact-email">&#128231; demo@example.com</a>
-        <div class="social-links">
-          <a href="https://t.me/demo_portfolio" class="social-link" target="_blank" rel="noopener">Telegram</a>
-          <a href="https://instagram.com/" class="social-link" target="_blank" rel="noopener">Instagram</a>
-          <a href="https://wa.me/" class="social-link" target="_blank" rel="noopener">WhatsApp</a>
-        </div>
-        <div class="form">
-          <h3 class="form-title">Оставьте заявку</h3>
-          <form onsubmit="return handleSubmit(event)">
-            <div class="form-group">
-              <label for="name">Имя</label>
-              <input type="text" id="name" placeholder="Ваше имя" required>
-            </div>
-            <div class="form-group">
-              <label for="phone">Телефон или Email</label>
-              <input type="text" id="phone" placeholder="+7 999 000-00-00" required>
-            </div>
-            <div class="form-group">
-              <label for="message">Сообщение</label>
-              <textarea id="message" placeholder="Какая услуга вас интересует..."></textarea>
-            </div>
-            <button type="submit" class="form-submit">Отправить заявку</button>
-          </form>
-        </div>
-      </div>
-
-    </div>
+  <!-- Фоновое свечение -->
+  <div class="bg-glow">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
   </div>
 
-  <footer class="footer">
-    <p>&copy; <span id="year"></span> Оксана Колпакова. Перманентный макияж — губы и брови.</p>
-  </footer>
+  <!-- Частицы: блёстки, лепестки, птицы -->
+  <canvas id="particles"></canvas>
+
+  <div class="page-content">
+    <button class="theme-toggle" id="themeToggle" aria-label="Сменить тему">&#9728;</button>
+
+    <header class="hero">
+      <div class="hero-content">
+        <div class="avatar-wrap">
+          <div class="avatar-ring-2"></div>
+          <div class="avatar-ring"></div>
+          <div class="avatar">
+            <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=400&fit=crop&crop=face" alt="Оксана Колпакова">
+          </div>
+        </div>
+        <h1 class="hero-name">Оксана Колпакова</h1>
+        <p class="hero-role">Мастер по перманентному макияжу губ и бровей</p>
+        <p class="hero-desc">Создаю естественную красоту, которая подчёркивает изящество вашего лица. Сертифицированный мастер с опытом более 5 лет. Каждая работа — это искусство.</p>
+        <a href="#contact" class="hero-btn">Записаться на консультацию</a>
+      </div>
+    </header>
+
+    <div class="blocks">
+      <div class="container">
+
+        <!-- Блок 1: О себе -->
+        <div class="block">
+          <h2 class="block-title">Обо мне</h2>
+          <p class="block-text">Я — мастер перманентного макияжа. Специализируюсь на губах и бровях: от нежной акварели до чёткой графики. Работаю исключительно с премиальными гипоаллергенными пигментами в стерильных условиях.</p>
+          <p class="block-text">Каждая работа начинается с личной консультации — подбираю форму и оттенок под ваш тип лица, цвет кожи и индивидуальные особенности. Мой подход — внимание к деталям и стремление к совершенству.</p>
+          <p class="block-text">Результат сохраняется 1–2 года. Бесплатная коррекция входит в стоимость. Моя цель — чтобы вы чувствовали себя уверенно и прекрасно каждый день.</p>
+        </div>
+
+        <!-- Блок 2: Перманент губ -->
+        <div class="block">
+          <h2 class="block-title">Перманент губ</h2>
+          <p class="block-text">Акварельная техника, контур с растушёвкой, полное заполнение цветом. Подбираю оттенок индивидуально — от нежного нюда до сочного натурального цвета. Губы выглядят свежо и ярко без ежедневного нанесения помады.</p>
+          <div class="photo-grid">
+            <div class="photo-card">
+              <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500&h=380&fit=crop" alt="Красивые губы — перманентный макияж">
+              <div class="photo-label">Яркий натуральный оттенок</div>
+            </div>
+            <div class="photo-card">
+              <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&h=380&fit=crop&crop=face" alt="Макияж губ">
+              <div class="photo-label">Акварельная техника</div>
+            </div>
+            <div class="photo-card">
+              <img src="https://images.unsplash.com/photo-1588528402605-3e4f8d4ddddb?w=500&h=380&fit=crop" alt="Идеальные губы">
+              <div class="photo-label">Контур с растушёвкой</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Блок 3: Перманент бровей -->
+        <div class="block">
+          <h2 class="block-title">Перманент бровей</h2>
+          <p class="block-text">Пудровое напыление, микроблейдинг, комбинированная и волосковая техника. Создаю идеальную форму, которая гармонирует с вашим лицом. Брови выглядят натурально и ухоженно — словно вы родились с ними.</p>
+          <div class="photo-grid">
+            <div class="photo-card">
+              <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500&h=380&fit=crop" alt="Перманент бровей — салон">
+              <div class="photo-label">Пудровое напыление</div>
+            </div>
+            <div class="photo-card">
+              <img src="https://images.unsplash.com/photo-1594747590578-8f22aff0e5e3?w=500&h=380&fit=crop&crop=face" alt="Идеальные брови">
+              <div class="photo-label">Микроблейдинг</div>
+            </div>
+            <div class="photo-card">
+              <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=500&h=380&fit=crop&crop=face" alt="Красивые брови">
+              <div class="photo-label">Естественная форма</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Блок 4: Услуги -->
+        <div class="block">
+          <h2 class="block-title">Услуги</h2>
+          <div class="services-grid">
+            <div class="service-card">
+              <div class="service-icon">💋</div>
+              <h4>Перманент губ</h4>
+              <p>Акварель, контур с растушёвкой, полное заполнение</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">✨</div>
+              <h4>Перманент бровей</h4>
+              <p>Пудровое напыление, микроблейдинг, волосковая техника</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">🔄</div>
+              <h4>Коррекция</h4>
+              <p>Обновление цвета и формы ранее выполненного перманента</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">💬</div>
+              <h4>Консультация</h4>
+              <p>Бесплатный подбор формы и оттенка для вашего типа лица</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Блок 5: Контакты -->
+        <div class="block" id="contact">
+          <h2 class="block-title">Контакты</h2>
+          <a href="mailto:demo@example.com" class="contact-email">&#128231; demo@example.com</a>
+          <div class="social-links">
+            <a href="https://t.me/demo_portfolio" class="social-link" target="_blank" rel="noopener">Telegram</a>
+            <a href="https://instagram.com/" class="social-link" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://wa.me/" class="social-link" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+          <div class="form">
+            <h3 class="form-title">Оставьте заявку</h3>
+            <form onsubmit="return handleSubmit(event)">
+              <div class="form-group">
+                <label for="name">Имя</label>
+                <input type="text" id="name" placeholder="Ваше имя" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Телефон или Email</label>
+                <input type="text" id="phone" placeholder="+7 999 000-00-00" required>
+              </div>
+              <div class="form-group">
+                <label for="message">Сообщение</label>
+                <textarea id="message" placeholder="Какая услуга вас интересует..."></textarea>
+              </div>
+              <button type="submit" class="form-submit">Отправить заявку</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>&copy; <span id="year"></span> Оксана Колпакова. Перманентный макияж — губы и брови.</p>
+    </footer>
+  </div>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // Переключатель темы
     const toggle = document.getElementById('themeToggle');
     const html = document.documentElement;
     const saved = localStorage.getItem('theme');
@@ -567,6 +779,7 @@
       toggle.textContent = next === 'light' ? '\u{1F319}' : '\u{2600}';
     });
 
+    // Отправка формы
     function handleSubmit(e) {
       e.preventDefault();
       const btn = e.target.querySelector('.form-submit');
@@ -579,6 +792,194 @@
       }, 2500);
       return false;
     }
+
+    // === АНИМАЦИЯ ЧАСТИЦ: блёстки, лепестки, птицы, солнечные лучи ===
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = document.documentElement.scrollHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Блёстки
+    const sparkles = [];
+    for (let i = 0; i < 80; i++) {
+      sparkles.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 2.5 + 0.5,
+        dx: (Math.random() - 0.5) * 0.5,
+        dy: (Math.random() - 0.5) * 0.5,
+        alpha: Math.random(),
+        dAlpha: (Math.random() * 0.02 + 0.005) * (Math.random() > 0.5 ? 1 : -1),
+        color: ['#ff4d9a','#ffb347','#c77dff','#00e5ff','#ff6eb4','#fff'][Math.floor(Math.random()*6)]
+      });
+    }
+
+    // Лепестки (сакура / цветочные)
+    const petals = [];
+    const petalColors = ['#ff6eb4','#ff4d9a','#ffb7c5','#ffa07a','#ffccd4','#ff8fa3'];
+    for (let i = 0; i < 30; i++) {
+      petals.push({
+        x: Math.random() * W,
+        y: Math.random() * H - H,
+        size: Math.random() * 10 + 6,
+        speedY: Math.random() * 1.2 + 0.3,
+        speedX: Math.random() * 0.8 - 0.4,
+        rot: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.04,
+        color: petalColors[Math.floor(Math.random()*petalColors.length)],
+        alpha: Math.random() * 0.5 + 0.4
+      });
+    }
+
+    // Птицы
+    const birds = [];
+    for (let i = 0; i < 5; i++) {
+      birds.push({
+        x: -50 - Math.random() * 200,
+        y: Math.random() * H * 0.3 + 30,
+        speed: Math.random() * 1.5 + 0.5,
+        wingPhase: Math.random() * Math.PI * 2,
+        wingSpeed: Math.random() * 0.08 + 0.04,
+        size: Math.random() * 6 + 4,
+        alpha: Math.random() * 0.4 + 0.2
+      });
+    }
+
+    // Солнце (верхний правый угол)
+    function drawSun() {
+      const sunX = W - 80;
+      const sunY = 80;
+      const time = Date.now() / 1000;
+
+      // Лучи
+      for (let i = 0; i < 12; i++) {
+        const angle = (Math.PI * 2 / 12) * i + time * 0.2;
+        const len = 35 + Math.sin(time * 2 + i) * 10;
+        ctx.beginPath();
+        ctx.moveTo(sunX + Math.cos(angle) * 25, sunY + Math.sin(angle) * 25);
+        ctx.lineTo(sunX + Math.cos(angle) * (25 + len), sunY + Math.sin(angle) * (25 + len));
+        ctx.strokeStyle = `rgba(255, 179, 71, ${0.15 + Math.sin(time + i) * 0.08})`;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+
+      // Сияние
+      const grad = ctx.createRadialGradient(sunX, sunY, 5, sunX, sunY, 60 + Math.sin(time) * 10);
+      grad.addColorStop(0, 'rgba(255, 200, 80, 0.35)');
+      grad.addColorStop(0.5, 'rgba(255, 150, 50, 0.1)');
+      grad.addColorStop(1, 'rgba(255, 100, 50, 0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(sunX, sunY, 60 + Math.sin(time) * 10, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Ядро
+      const coreGrad = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, 20);
+      coreGrad.addColorStop(0, 'rgba(255, 230, 150, 0.9)');
+      coreGrad.addColorStop(1, 'rgba(255, 179, 71, 0.3)');
+      ctx.fillStyle = coreGrad;
+      ctx.beginPath();
+      ctx.arc(sunX, sunY, 20, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function drawBird(b) {
+      const wing = Math.sin(b.wingPhase) * b.size * 0.7;
+      ctx.strokeStyle = `rgba(255, 110, 180, ${b.alpha})`;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(b.x - b.size, b.y + wing);
+      ctx.quadraticCurveTo(b.x - b.size * 0.3, b.y - wing * 0.5, b.x, b.y);
+      ctx.quadraticCurveTo(b.x + b.size * 0.3, b.y - wing * 0.5, b.x + b.size, b.y + wing);
+      ctx.stroke();
+    }
+
+    function drawPetal(p) {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.globalAlpha = p.alpha;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, p.size * 0.45, p.size, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(p.size * 0.2, 0, p.size * 0.35, p.size * 0.75, 0.3, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, W, H);
+
+      // Солнце
+      drawSun();
+
+      // Блёстки
+      sparkles.forEach(s => {
+        s.x += s.dx;
+        s.y += s.dy;
+        s.alpha += s.dAlpha;
+        if (s.alpha > 1 || s.alpha < 0) s.dAlpha *= -1;
+        if (s.x < 0) s.x = W;
+        if (s.x > W) s.x = 0;
+        if (s.y < 0) s.y = H;
+        if (s.y > H) s.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = s.color;
+        ctx.globalAlpha = s.alpha * 0.7;
+        ctx.shadowColor = s.color;
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.globalAlpha = 1;
+      });
+
+      // Лепестки
+      petals.forEach(p => {
+        p.y += p.speedY;
+        p.x += p.speedX + Math.sin(p.y * 0.01) * 0.3;
+        p.rot += p.rotSpeed;
+        if (p.y > H + 20) {
+          p.y = -20;
+          p.x = Math.random() * W;
+        }
+        drawPetal(p);
+      });
+
+      // Птицы
+      birds.forEach(b => {
+        b.x += b.speed;
+        b.y += Math.sin(b.x * 0.005) * 0.3;
+        b.wingPhase += b.wingSpeed;
+        if (b.x > W + 60) {
+          b.x = -50;
+          b.y = Math.random() * H * 0.3 + 30;
+        }
+        drawBird(b);
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Обновление размера canvas при прокрутке
+    setInterval(() => {
+      const newH = document.documentElement.scrollHeight;
+      if (canvas.height !== newH) {
+        canvas.height = newH;
+        H = newH;
+      }
+    }, 2000);
   </script>
 </body>
 </html>
